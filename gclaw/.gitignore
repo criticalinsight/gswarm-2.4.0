@@ -1,0 +1,9 @@
+*.beam
+*.ez
+/build
+erl_crash.dump
+
+# Sly Agent Data
+.sly/
+.agent/workflows/start.md
+.agent/workflows/start.md

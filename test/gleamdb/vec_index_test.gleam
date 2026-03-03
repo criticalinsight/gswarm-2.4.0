@@ -1,0 +1,149 @@
+import gleeunit/should
+import gleam/list
+import gleamdb/fact
+import gleamdb/vec_index
+import gleamdb/vector
+
+// --- Insert & Size Tests ---
+
+pub fn empty_index_test() {
+  let idx = vec_index.new()
+  should.equal(vec_index.size(idx), 0)
+  should.be_false(vec_index.contains(idx, fact.EntityId(1)))
+}
+
+pub fn insert_single_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+  
+  should.equal(vec_index.size(idx), 1)
+  should.be_true(vec_index.contains(idx, fact.EntityId(1)))
+}
+
+pub fn insert_multiple_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.0, 1.0, 0.0])
+    |> vec_index.insert(fact.EntityId(3), [0.0, 0.0, 1.0])
+  
+  should.equal(vec_index.size(idx), 3)
+}
+
+// --- Search Tests ---
+
+pub fn search_exact_match_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.0, 1.0, 0.0])
+    |> vec_index.insert(fact.EntityId(3), [1.0, 0.1, 0.0])
+  
+  // Search for vectors similar to [1.0, 0.0, 0.0]
+  let results = vec_index.search(idx, [1.0, 0.0, 0.0], 0.9, 10)
+  
+  // Entity 1 is exact match (cos=1.0), Entity 3 is close (~0.995)
+  should.be_true(list.length(results) >= 2)
+  
+  // Best result should be entity 1
+  let assert Ok(best) = list.first(results)
+  should.equal(best.entity, fact.EntityId(1))
+  should.be_true(best.score >=. 0.99)
+}
+
+pub fn search_threshold_filtering_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.0, 1.0, 0.0])
+  
+  // High threshold should only match exact direction
+  let strict = vec_index.search(idx, [1.0, 0.0, 0.0], 0.99, 10)
+  should.equal(list.length(strict), 1)
+  
+  // Zero threshold matches everything
+  let loose = vec_index.search(idx, [1.0, 0.0, 0.0], 0.0, 10)
+  should.equal(list.length(loose), 2)
+}
+
+pub fn search_empty_index_test() {
+  let idx = vec_index.new()
+  let results = vec_index.search(idx, [1.0, 0.0, 0.0], 0.5, 10)
+  should.equal(list.length(results), 0)
+}
+
+pub fn search_top_k_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.9, 0.1, 0.0])
+    |> vec_index.insert(fact.EntityId(3), [0.8, 0.2, 0.0])
+    |> vec_index.insert(fact.EntityId(4), [0.7, 0.3, 0.0])
+    |> vec_index.insert(fact.EntityId(5), [0.0, 1.0, 0.0])
+  
+  // Ask for top-2 similar to [1.0, 0.0, 0.0]
+  let results = vec_index.search(idx, [1.0, 0.0, 0.0], 0.5, 2)
+  should.equal(list.length(results), 2)
+  
+  // Results should be sorted by score descending
+  let assert Ok(first) = list.first(results)
+  let assert Ok(second) = results |> list.drop(1) |> list.first()
+  should.be_true(first.score >=. second.score)
+}
+
+// --- Delete Tests ---
+
+pub fn delete_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.0, 1.0, 0.0])
+  
+  let idx2 = vec_index.delete(idx, fact.EntityId(1))
+  should.equal(vec_index.size(idx2), 1)
+  should.be_false(vec_index.contains(idx2, fact.EntityId(1)))
+  should.be_true(vec_index.contains(idx2, fact.EntityId(2)))
+}
+
+pub fn delete_and_search_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.9, 0.1, 0.0])
+    |> vec_index.delete(fact.EntityId(1))
+  
+  let results = vec_index.search(idx, [1.0, 0.0, 0.0], 0.5, 10)
+  // Entity 1 deleted, only entity 2 should remain
+  should.equal(list.length(results), 1)
+  let assert Ok(r) = list.first(results)
+  should.equal(r.entity, fact.EntityId(2))
+}
+
+// --- Vector Module Enrichment Tests ---
+
+pub fn euclidean_distance_test() {
+  let d = vector.euclidean_distance([1.0, 0.0, 0.0], [0.0, 1.0, 0.0])
+  // sqrt(2) ≈ 1.414
+  should.be_true(d >. 1.4)
+  should.be_true(d <. 1.5)
+}
+
+pub fn normalize_test() {
+  let n = vector.normalize([3.0, 4.0])
+  // Should be [0.6, 0.8]
+  let mag = vector.magnitude(n)
+  should.be_true(mag >. 0.999)
+  should.be_true(mag <. 1.001)
+}
+
+pub fn dimensions_test() {
+  should.equal(vector.dimensions([1.0, 2.0, 3.0]), 3)
+  should.equal(vector.dimensions([]), 0)
+}
+
+// --- NSW Graph Connectivity ---
+
+pub fn graph_has_edges_test() {
+  let idx = vec_index.new()
+    |> vec_index.insert(fact.EntityId(1), [1.0, 0.0, 0.0])
+    |> vec_index.insert(fact.EntityId(2), [0.9, 0.1, 0.0])
+    |> vec_index.insert(fact.EntityId(3), [0.0, 1.0, 0.0])
+  
+  // All entities should have search results via graph
+  let r1 = vec_index.search(idx, [0.95, 0.05, 0.0], 0.0, 10)
+  should.equal(list.length(r1), 3)
+}

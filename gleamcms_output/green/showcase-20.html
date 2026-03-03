@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showcase: Synthwave - Green</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      --bg-color: #052e16;
+      --text-color: #f0fdf4;
+      --accent-color: #4ade80;
+      --border-color: #14532d;
+      --card-bg: #14532d;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent-color);
+    }
+    article header {
+      margin-bottom: 2rem;
+    }
+    article h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .meta {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    .content {
+      font-size: 1.125rem;
+    }
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+    <a href="/" class="logo">Green</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </nav>
+    <main>
+      <article>
+    <header>
+      <h1>Showcase: Synthwave</h1>
+      <div class="meta">Draft</div>
+    </header>
+    <div class="content">
+      # Welcome to Synthwave
+
+This post demonstrates the Synthwave theme in GleamCMS.
+    </div>
+  </article>
+    </main>
+    <footer>
+    <p>&copy; 2026 Sovereign Individual. Built with GleamCMS.</p>
+  </footer>
+  </div>
+</body>
+</html>

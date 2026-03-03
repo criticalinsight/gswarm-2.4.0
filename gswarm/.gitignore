@@ -1,0 +1,16 @@
+*.beam
+*.ez
+/build
+erl_crash.dump
+# Environment
+.env
+.env.*
+
+# Sly Agent Data
+.sly/
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+Mnesia.*

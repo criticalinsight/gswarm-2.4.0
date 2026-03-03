@@ -1,0 +1,221 @@
+:root {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --accent-color: #3b82f6;
+  --border-color: #1e293b;
+  --card-bg: #1e293b;
+  --input-bg: #334155;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+.editor-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.875rem;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+textarea {
+  min-height: 300px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.status-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* AI Designer Section */
+.ai-section {
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.03);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.ai-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-input {
+  flex: 1;
+}
+
+.ai-btn {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+  min-width: 80px;
+}
+
+.ai-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ai-btn:active {
+  transform: translateY(0);
+}
+
+.ai-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.save-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  width: 100%;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+
+.save-btn:active {
+  background-color: #1d4ed8;
+}
+
+/* Action row: two buttons side by side */
+.action-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.action-row .save-btn {
+  flex: 2;
+}
+
+.generate-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #16a34a;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.generate-btn:hover {
+  background-color: #15803d;
+}
+
+.generate-btn:active {
+  background-color: #166534;
+}
+
+.generate-btn:disabled {
+  background-color: #374151;
+  cursor: wait;
+}
+
+/* Generated link banner */
+.generated-link {
+  display: none;
+  margin-top: 1.25rem;
+  padding: 0.875rem 1rem;
+  border-radius: 6px;
+  background-color: rgba(22, 163, 74, 0.12);
+  border: 1px solid #16a34a;
+  color: #86efac;
+  font-size: 0.9rem;
+}
+
+.generated-link a {
+  color: #4ade80;
+  text-decoration: underline;
+  margin: 0 0.25rem;
+}
+
+/* Theme picker arrow */
+.theme-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}

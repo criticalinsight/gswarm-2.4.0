@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Our Mission - Stone</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      --bg-color: #1c1917;
+      --text-color: #fafaf9;
+      --accent-color: #a8a29e;
+      --border-color: #292524;
+      --card-bg: #292524;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --radius: 0.75rem;
+      --spacing: 2rem;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--spacing);
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      margin-bottom: var(--spacing);
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      text-decoration: none;
+      letter-spacing: -0.025em;
+    }
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      opacity: 0.8;
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent-color);
+      transform: translateY(-1px);
+    }
+    header.hero {
+      padding: 4rem 0;
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: var(--spacing);
+    }
+    article {
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+    }
+    .meta {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .content {
+      font-size: 1.125rem;
+    }
+    footer {
+      margin-top: 4rem;
+      padding: 4rem 0;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    /* Global Section Transitions */
+    .section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Grid Rhythm */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing);
+    }
+    
+    .stats-grid {
+      display: flex;
+      justify-content: space-around;
+      gap: var(--spacing);
+      text-align: center;
+    }
+
+    /* Hero Variations */
+    .hero-section {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--spacing) * 2);
+    }
+    
+    .layout-hero-split .hero-section {
+      justify-content: flex-start;
+      text-align: left;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+    }
+    
+    .accent-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--accent-color);
+      margin-bottom: 1.5rem;
+    }
+
+    
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.section').forEach(s => observer.observe(s));
+    });
+  </script>
+</head>
+<body class="layout-standard">
+  <div class="container">
+    <nav>
+    <a href="/" class="logo">Stone</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </nav>
+    <main>
+      <section class="section cta-section">
+    <h2>Join Our Mission</h2>
+    <div class="cta-content">Ready to make a difference? We are looking for passionate individuals to join our fellowship of service. Inquire about membership today.</div>
+  </section>
+    </main>
+    <footer>
+    <p>&copy; 2026 Stone. Built with GleamCMS.</p>
+  </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+/target
+.env
+.DS_Store
+/cozo_data
+*.db
+*.sqlite
+
+# Sly Agent Data
+.sly/
+.agent/

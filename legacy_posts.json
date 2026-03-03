@@ -1,0 +1,20 @@
+[
+  {
+    "id": "legacy_1",
+    "title": "The Tao of Elixir",
+    "slug": "tao-of-elixir",
+    "content_md": "# The Tao\nKeep it simple.",
+    "status": "published",
+    "published_at": 1708280000,
+    "tags": ["philosophy", "elixir"]
+  },
+  {
+    "id": "legacy_2",
+    "title": "Gleam for the Bold",
+    "slug": "gleam-for-bold",
+    "content_md": "Type safety is a virtue.",
+    "status": "draft",
+    "published_at": null,
+    "tags": ["gleam", "future"]
+  }
+]
